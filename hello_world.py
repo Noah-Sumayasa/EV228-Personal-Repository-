@@ -1,0 +1,1 @@
+print('Sphink of the black quartz, judge my vow')
