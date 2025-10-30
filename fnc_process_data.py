@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import xarray as xr
 
 def process_data(file, variable1, variable2):
     df_cos = pd.read_csv(file)
@@ -27,4 +28,27 @@ def plot_data(Output):
     plt.ylabel('temperature, deg F')
     plt.legend()
     plt.show()
+    
+
+
+def process_grid_data(path_file, variable1, validtime):
+    data_file= xr.open_dataset(path_file)
+    var1= data_file[variable1]
+    var2= data_file[validtime]
+
+    '''
+Imports the netCDF file and parses the data for the t2m data and graphs it
+
+Arguments: 
+
+'''
+    
+    var2_ave= var2.mean(validtime)
+
+    var2_ave.plot()
+    plt.show()
+    return var2_ave
+
+#print(data_set)
+
     
