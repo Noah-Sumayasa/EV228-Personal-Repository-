@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import xarray as xr
 
-def process_data(file, variable1, variable2):
+def process_data(file, variable1, variable2, Title_String, Label_Stringx, Label_Stringy):
     df_cos = pd.read_csv(file)
     ''' Imports data file and returns the data parsed from the column specified
 
@@ -18,14 +18,16 @@ def process_data(file, variable1, variable2):
     '''
     var1 = df_cos[variable1]
     var2 = df_cos[variable2]
-    return var1, var2
+    var3 = pd.concat([var1, var2], axis= 1)
+    var3_filtered = var3[var3[variable2]!= 999.90]
+    
+    print(var3_filtered)
+   # fig = plt.figure()
 
-def plot_data(Output):
-    fig = plt.figure()
-
-    plt.plot(Output, color='red', label=str(Variable1))
-    plt.xlabel(str(variable1))
-    plt.ylabel('temperature, deg F')
+    var3_filtered.set_index(variable1, inplace = True)
+    var3_filtered.plot()
+    plt.xlabel(Label_Stringx)
+    plt.ylabel(Label_Stringy)
     plt.legend()
     plt.show()
     
