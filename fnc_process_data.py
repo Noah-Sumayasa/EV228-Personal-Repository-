@@ -84,4 +84,14 @@ def Plot_Grid_Data(dict_val):
    
     dict_val.plot()
     plt.show()
+
+'''
+Imports a certain value from the dictionary and plots it on a gridded format 
+
+Arguments: 
+    dict_val -- a certain key from the dictionary 
+
+Outputs: 
+    plot.show() -- plots that key from the dictionary
+'''
     
