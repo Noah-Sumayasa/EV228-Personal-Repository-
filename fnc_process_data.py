@@ -8,22 +8,31 @@ def process_data(file, str_grab,):
     data_grab = pd.read_csv(file)
     val1 = data_grab(str_grab)
     return val1
+''' Imports data file and returns the data parsed from the specific column
+    
+    Arguments: 
+        file -- the path name that directs to the data set desired
+        str_grab --  when set to a specific string, parses for that in the file
+
+    Outputs 
+        val1 -- returns data parsed in the column specified
+    
+'''
                 
 def process_data_graph(file, variable1, variable2, Title_String, Label_Stringx, Label_Stringy):
     df_cos = pd.read_csv(file)
-    ''' Imports data file and returns the data parsed from the column specified
+    ''' Imports data file and plots the data parsed from the column/s specified
 
-    Arguments:
-    file -- the path name that directs to the data set desired 
-    variable1 -- when set to a specific string, parses for that in the file
-    variable2 -- when set to a specific string, parses for that in the file
-    Title_String -- Specific string for the graph title
-    Label_Stringx -- Specific string for x axis
-    Label Stringy -- Specific string for y axis
+        Arguments:
+            file -- the path name that directs to the data set desired 
+            variable1 -- when set to a specific string, parses for that in the file
+            variable2 -- when set to a specific string, parses for that in the file
+            Title_String -- Specific string for the graph title
+            Label_Stringx -- Specific string for x axis
+            Label Stringy -- Specific string for y axis
 
-    Outputs:
-    var1 -- the data parsed indicated at the string in variable1
-    var2 -- the data parsed indicatated at the string in variable2
+        Outputs:
+            plot() -- plots the data parsed
     '''
     var1 = df_cos[variable1]
     var2 = df_cos[variable2]
@@ -43,24 +52,36 @@ def process_data_graph(file, variable1, variable2, Title_String, Label_Stringx, 
     
 
 
-def process_grid_data(path_file, variable1, validtime):
+def process_grid_data(path_file, variable1, variable2):
     data_file= xr.open_dataset(path_file)
     var1= data_file[variable1]
-    var2= data_file[validtime]
-
+  
+    print(var1)
     '''
 Imports the netCDF file and parses the data for the t2m data and graphs it
 
 Arguments: 
+    path_file -- the path name that directs to the data set desired 
+    variable1 -- when set to a specific string, parses for that in the file
+    variable2 -- when set to a specific string, parses for that in the file
 
+Outputs: 
+    dict_grid -- outputs the dictionary of values calculated with descriptive statistics 
 '''
-    
-    var2_ave= var2.mean(validtime)
-
-    var2_ave.plot()
-    plt.show()
-    return var2_ave
+    dict_grid = {
+        "mean": var1.mean(variable2),
+        "STD": var1.std(variable2),
+        "median": var1.median(variable2),
+        "max": var1.max(variable2),
+        "min":var1.min(variable2)
+        #"Quan": var1.quantile(validtime, 0.5)
+    }
+    return dict_grid
 
 #print(data_set)
 
+def Plot_Grid_Data(dict_val):
+   
+    dict_val.plot()
+    plt.show()
     

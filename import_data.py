@@ -9,7 +9,7 @@ print(df_cos)
 yr = df_cos['YEAR']
 amt = df_cos['metANN']
 
-fig = plt.figure()
+fig = plt.figure(Output)
 
 plt.plot(max_temp, color='red', label='max temp')
 plt.xlabel('time')
