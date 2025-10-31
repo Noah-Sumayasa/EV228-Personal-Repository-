@@ -3,7 +3,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 import xarray as xr
 
-def process_data(file, variable1, variable2, Title_String, Label_Stringx, Label_Stringy):
+
+def process_data(file, str_grab,):
+    data_grab = pd.read_csv(file)
+    val1 = data_grab(str_grab)
+    return val1
+                
+def process_data_graph(file, variable1, variable2, Title_String, Label_Stringx, Label_Stringy):
     df_cos = pd.read_csv(file)
     ''' Imports data file and returns the data parsed from the column specified
 
@@ -11,6 +17,9 @@ def process_data(file, variable1, variable2, Title_String, Label_Stringx, Label_
     file -- the path name that directs to the data set desired 
     variable1 -- when set to a specific string, parses for that in the file
     variable2 -- when set to a specific string, parses for that in the file
+    Title_String -- Specific string for the graph title
+    Label_Stringx -- Specific string for x axis
+    Label Stringy -- Specific string for y axis
 
     Outputs:
     var1 -- the data parsed indicated at the string in variable1
@@ -21,11 +30,12 @@ def process_data(file, variable1, variable2, Title_String, Label_Stringx, Label_
     var3 = pd.concat([var1, var2], axis= 1)
     var3_filtered = var3[var3[variable2]!= 999.90]
     
-    print(var3_filtered)
+    #print(var3_filtered)
    # fig = plt.figure()
 
     var3_filtered.set_index(variable1, inplace = True)
     var3_filtered.plot()
+    plt.title(Title_String)
     plt.xlabel(Label_Stringx)
     plt.ylabel(Label_Stringy)
     plt.legend()
