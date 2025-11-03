@@ -10,7 +10,7 @@ import fnc_process_data as fncp
 
 lat = fncp.process_data('C:\\Users\\Ev228\\Downloads\\EV228_Data\\NAS-Specimen-Download.csv', 'Latitude')
 long = fncp.process_data('C:\\Users\\Ev228\\Downloads\\EV228_Data\\NAS-Specimen-Download.csv', 'Longitude')
-
+year = fncp.process_data('C:\\Users\\Ev228\\Downloads\\EV228_Data\\NAS-Specimen-Download.csv','Year')
 #print(lat)
 #print(long)
 

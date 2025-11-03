@@ -49,14 +49,15 @@ def process_data_graph(file, variable1, variable2, Title_String, Label_Stringx, 
     plt.ylabel(Label_Stringy)
     plt.legend()
     plt.show()
-    
+    plt.savefig('C:\\Users\\Ev228\\Downloads\\EV228_Data')
+    return var3_filtered
 
 
 def process_grid_data(path_file, variable1, variable2):
     data_file= xr.open_dataset(path_file)
     var1= data_file[variable1]
   
-    print(var1)
+    #print(var1)
     '''
 Imports the netCDF file and parses the data for the t2m data and graphs it
 
@@ -80,9 +81,12 @@ Outputs:
 
 #print(data_set)
 
-def Plot_Grid_Data(dict_val):
-
+def Plot_Grid_Data(dict_val, title, x_ax, y_ax):
+    
     dict_val.plot()
+    plt.title(title) 
+    plt.xlabel(x_ax)
+    plt.ylabel(y_ax)
     plt.show()
 
 '''
