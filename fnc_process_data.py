@@ -4,9 +4,9 @@ import numpy as np
 import xarray as xr
 
 
-def process_data(file, str_grab,):
+def process_data(file, str_grab):
     data_grab = pd.read_csv(file)
-    val1 = data_grab(str_grab)
+    val1 = data_grab[str_grab]
     return val1
 ''' Imports data file and returns the data parsed from the specific column
     
@@ -81,7 +81,7 @@ Outputs:
 #print(data_set)
 
 def Plot_Grid_Data(dict_val):
-    
+
     dict_val.plot()
     plt.show()
 
