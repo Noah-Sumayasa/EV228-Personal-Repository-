@@ -1,8 +1,5 @@
 import matplotlib.pyplot as plt
-import pandas as pd
 import numpy as np
-#import scipy.stats as stats
-#import fun_eds
 import matplotlib as mpl
 import fnc_process_data as fncp
 #Remember to also install basemap in the terminal: python -m pip install basemap
@@ -12,11 +9,7 @@ lat = fncp.process_data('C:\\Users\\Ev228\\Downloads\\EV228_Data\\NAS-Specimen-D
 lon = fncp.process_data('C:\\Users\\Ev228\\Downloads\\EV228_Data\\NAS-Specimen-Download.csv', 'Longitude')
 year = fncp.process_data('C:\\Users\\Ev228\\Downloads\\EV228_Data\\NAS-Specimen-Download.csv','Year')
 
-print(year)
-
-#filtered_data = year[year>=1986 and year<=2000]
-
-#print(filtered_data)
+#print(year)
 
 min_lat = min(lat)
 min_lon = min(lon)
@@ -33,11 +26,13 @@ m = Basemap(projection='mill',llcrnrlat=min_lat-1,urcrnrlat=max_lat+1,\
 m.drawcoastlines()
 m.drawrivers(color="#555555")
 m.fillcontinents(color="#888888",lake_color="#525252")
-# draw parallels and meridians.
-m.drawparallels(np.arange(-90.,91.,30.))
-m.drawmeridians(np.arange(-180.,181.,60.))
 m.drawmapboundary(fill_color="#383838")
 m.scatter(lon, lat, s=35, c= year, marker='x',cmap= 'copper', latlon=True)
+parallels = np.arange(-90., 91., 5.)
+m.drawparallels(parallels, labels=[True, False, False, False], fontsize=10, linewidth=0.001)
+meridians = np.arange(-180., 181., 5.) # Draw meridians every 60 degrees
+m.drawmeridians(meridians, labels=[False, False, False, True], fontsize=10, linewidth=0.001)
+
 plt.colorbar(label = 'year')
 plt.title("Locations of Zebra Mussel Observations, 1986 to 2025")
 plt.show()

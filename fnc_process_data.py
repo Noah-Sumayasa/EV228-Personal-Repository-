@@ -81,13 +81,15 @@ Outputs:
 
 #print(data_set)
 
-def Plot_Grid_Data(dict_val, title, x_ax, y_ax):
+def Plot_Grid_Data(dict_val, title, filepath):
     
     dict_val.plot()
     plt.title(title) 
-    plt.xlabel(x_ax)
-    plt.ylabel(y_ax)
+    #plt.xlabel(x_ax)
+    #plt.ylabel(y_ax)
+    plt.savefig(filepath, dpi=400)
     plt.show()
+    
 
 '''
 Imports a certain value from the dictionary and plots it on a gridded format 
