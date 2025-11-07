@@ -16,6 +16,7 @@ min_lon = min(lon)
 max_lat = max(lat)
 max_lon = max(lon)
 
+print(max_lon, max_lat, min_lon, min_lat)
 '''plt.scatter(lon, lat, s=35, color='red', marker='x', label='longitude')
 plt.show()
 '''

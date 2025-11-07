@@ -53,7 +53,7 @@ def process_data_graph(file, variable1, variable2, Title_String, Label_Stringx, 
     return var3_filtered
 
 
-def process_grid_data(path_file, variable1, variable2):
+def process_grid_data_dict(path_file, variable1, variable2):
     data_file= xr.open_dataset(path_file)
     var1= data_file[variable1]
   
@@ -100,4 +100,13 @@ Arguments:
 Outputs: 
     plot.show() -- plots that key from the dictionary
 '''
-    
+
+def process_grid_data(filepath, latitude, longitude, test_variable, Year):
+
+    data_file= xr.open_dataset(filepath)
+    lat = data_file(latitude)
+    long = data_file(longitude)
+    var_test = data_file(test_variable)
+    time = data_file(Year)
+
+    return lat, long, var_test, time
