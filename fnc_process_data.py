@@ -2,11 +2,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import xarray as xr
-
+import scipy.stats as scp
 
 def process_data(file, str_grab):
     data_grab = pd.read_csv(file)
     val1 = data_grab[str_grab]
+    #val1_filt = val1[val1 != 999.90]
+    #return val1_filt
     return val1
 ''' Imports data file and returns the data parsed from the specific column
     
@@ -44,13 +46,15 @@ def process_data_graph(file, variable1, variable2, Title_String, Label_Stringx, 
 
     var3_filtered.set_index(variable1, inplace = True)
     var3_filtered.plot()
+    #print(var3_filtered)
+    #regressline = scp.linregress(var3_filtered['YEAR'],var3_filtered['metANN'])
     plt.title(Title_String)
     plt.xlabel(Label_Stringx)
     plt.ylabel(Label_Stringy)
     plt.legend()
     plt.show()
     plt.savefig('C:\\Users\\Ev228\\Downloads\\EV228_Data')
-    return var3_filtered
+    return var3_filtered, 
 
 
 def process_grid_data_dict(path_file, variable1, variable2):
@@ -104,9 +108,9 @@ Outputs:
 def process_grid_data(filepath, latitude, longitude, test_variable, Year):
 
     data_file= xr.open_dataset(filepath)
-    lat = data_file(latitude)
-    long = data_file(longitude)
-    var_test = data_file(test_variable)
-    time = data_file(Year)
+    lat = data_file[latitude]
+    long = data_file[longitude]
+    var_test = data_file[test_variable]
+    time = data_file[Year]
 
     return lat, long, var_test, time
