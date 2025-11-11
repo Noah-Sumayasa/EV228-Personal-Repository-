@@ -8,8 +8,8 @@ import xarray as xr
 
 latsnow, longsnow, Snowvar, snowvalt = fncp.process_grid_data('C:\\Users\\Ev228\\Downloads\\EV228_Data\\Da_1.nc','latitude', 'longitude', 'lsf', 'valid_time')
 lattemp, longtemp, Tempvar, tempvalt = fncp.process_grid_data('C:\\Users\\Ev228\\Downloads\\EV228_Data\\Da_2.nc','latitude', 'longitude', 't2m', 'valid_time')
-
-fncp.basemap_grid_plot(longtemp, lattemp, Tempvar, 'valid_time', 't2m', 'Max t2m in Asia', 'C:\\Users\\Ev228\\Downloads\\EV228_Data\\IndvPro_Tempmax')
+'''Dict_vals = mean, STD, median, max, min'''
+fncp.basemap_grid_plot(longtemp, lattemp, Tempvar, 'valid_time', 'STD', 't2m', 'Stdev t2m in Asia', 'C:\\Users\\Ev228\\Downloads\\EV228_Data\\IndvPro_TempSTD')
 
 sys.exit('Stop')
 

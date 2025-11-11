@@ -116,8 +116,15 @@ def process_grid_data(filepath, latitude, longitude, test_variable, Year):
 
     return lat, long, var_test, time
 
-def basemap_grid_plot(long, lat, data, timestring, cblabel, title, fp_and_name):
-    Varstat = data.max(timestring)
+def basemap_grid_plot(long, lat, data, timestring, dictval, cblabel, title, fp_and_name):
+    
+    dict_grid = {
+    "mean": data.mean(timestring),
+    "STD": data.std(timestring),
+    "median": data.median(timestring),
+    "max": data.max(timestring),
+    "min":data.min(timestring)
+    }
 
     maxlat = max(lat)
     minlat = min(lat)
@@ -133,7 +140,7 @@ def basemap_grid_plot(long, lat, data, timestring, cblabel, title, fp_and_name):
     m.drawcountries(linewidth=0.5, linestyle='solid', color='black')
     longsnowgrid, latsnowgrid = np.meshgrid(long, lat)
     x, y = m(longsnowgrid, latsnowgrid)
-    m.pcolor(x, y, np.squeeze(Varstat), zorder = 1)
+    m.pcolor(x, y, np.squeeze(dict_grid[dictval]), zorder = 1)
     plt.colorbar(label = cblabel)
     plt.title(title)
     plt.savefig(fp_and_name, dpi=400)
