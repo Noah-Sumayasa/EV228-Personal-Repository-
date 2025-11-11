@@ -114,3 +114,36 @@ def process_grid_data(filepath, latitude, longitude, test_variable, Year):
     time = data_file[Year]
 
     return lat, long, var_test, time
+
+def basemap_grid_plot(long, lat, data, timestring):
+    Varstat = data.max(timestring)
+
+maxlat = max(lat)
+minlat = min(lat)
+maxlong = max(long)
+minlong = min(long)
+
+#print(minlatsnow)
+#print(maxlatsnow)
+#print(minlongsnow)
+#print(maxlongsnow)
+
+#sys.exit('Stop')
+
+'''Baseline approach'''
+#print(latsnow)
+#print(longsnow)
+#fncp.Plot_Grid_Data(Snowvarmean, 'title', 'C:\\Users\\Ev228\\Downloads\\EV228_Data')
+#m = Basemap()
+m = Basemap(projection='mill',llcrnrlat=25.0,urcrnrlat=50.0,\
+            llcrnrlon=66.0,urcrnrlon=125.0,resolution='l')
+m.drawcoastlines()
+m.drawmapboundary(fill_color="#FFFFFF")
+m.drawcountries(linewidth=0.5, linestyle='solid', color='black')
+longsnowgrid, latsnowgrid = np.meshgrid(longsnow, latsnow)
+x, y = m(longsnowgrid, latsnowgrid)
+m.pcolor(x, y, np.squeeze(Snowvarstat), zorder = 1)
+plt.colorbar(label = 'snowfall')
+plt.title("Mean extreme Snowfall events in Asia")
+plt.savefig('C:\\Users\\Ev228\\Downloads\\EV228_Data\\IndvPro_Snowmax', dpi=400)
+plt.show()

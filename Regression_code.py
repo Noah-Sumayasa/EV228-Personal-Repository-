@@ -3,8 +3,37 @@ import scipy.stats as sp
 import matplotlib.pyplot as plt
 import sys
 import numpy as np
-Output1 = fncp.process_data('C:\\Users\\Ev228\\Downloads\\EV228_Data\\Bishop-Rock.csv','T_HMP')
-Output2 = fncp.process_data('C:\\Users\\Ev228\\Downloads\\EV228_Data\\Bishop-Rock.csv','TIMESTAMP')
+import pandas as pd
+Temp = fncp.process_data('C:\\Users\\Ev228\\Downloads\\EV228_Data\\Bishop-Rock.csv','T_HMP')
+Time = fncp.process_data('C:\\Users\\Ev228\\Downloads\\EV228_Data\\Bishop-Rock.csv','TIMESTAMP')
+
+Tempsel = Time.head(60) 
+Timesel = Temp.head(60) 
+
+start_row = 0
+end_row = 59
+Temp2sel = Temp.iloc[start_row:end_row]
+Time2sel = Time.iloc[start_row:end_row]
+
+plt.xticks(rotation=90)
+plt.title('Mount Everest - Hourly surface tempurature')
+plt.xlabel('Time "hr"')
+plt.ylabel('Surface temp')
+plt.scatter(Time2sel, Temp2sel)
+
+Reg = sp.linregress(Time2sel, Temp2sel)
+print(Reg)
+
+plt.show()
+
+sys.exit('Stop') 
+
+slope = Reg.slope
+intercept = Reg.intercept
+y_pred = intercept + slope * Output2
+plt.scatter(Output2, Output1)
+plt.plot(Output2, y_pred, color='red', label='Regression Line')
+plt.show()
 
 #max = Output2.max()
 #min = Output2.min()
@@ -20,15 +49,6 @@ Output2 = fncp.process_data('C:\\Users\\Ev228\\Downloads\\EV228_Data\\Bishop-Roc
 #print(STD)
 #print(max)
 #print(min)
-
-Reg = sp.linregress(Output2, Output1)
-print(Reg)
-
-sys.exit('Stop') 
-
-slope = Reg.slope
-intercept = Reg.intercept
-y_pred = intercept + slope * Output2
 ''' 
 imports the function indicated by the file name "fnc_process_data" as "fncp" and runs it with the chosen data
 
@@ -36,9 +56,7 @@ Arguments:
 
 '''
 
-plt.scatter(Output2, Output1)
-plt.plot(Output2, y_pred, color='red', label='Regression Line')
-plt.show()
+
 
 
 #print(regression)
