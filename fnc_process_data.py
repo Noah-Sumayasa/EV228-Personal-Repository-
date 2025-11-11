@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import xarray as xr
 import scipy.stats as scp
+from mpl_toolkits.basemap import Basemap, shiftgrid
 
 def process_data(file, str_grab):
     data_grab = pd.read_csv(file)
@@ -115,35 +116,25 @@ def process_grid_data(filepath, latitude, longitude, test_variable, Year):
 
     return lat, long, var_test, time
 
-def basemap_grid_plot(long, lat, data, timestring):
+def basemap_grid_plot(long, lat, data, timestring, cblabel, title, fp_and_name):
     Varstat = data.max(timestring)
 
-maxlat = max(lat)
-minlat = min(lat)
-maxlong = max(long)
-minlong = min(long)
+    maxlat = max(lat)
+    minlat = min(lat)
+    maxlong = max(long)
+    minlong = min(long)
 
-#print(minlatsnow)
-#print(maxlatsnow)
-#print(minlongsnow)
-#print(maxlongsnow)
+    '''Baseline approach'''
 
-#sys.exit('Stop')
-
-'''Baseline approach'''
-#print(latsnow)
-#print(longsnow)
-#fncp.Plot_Grid_Data(Snowvarmean, 'title', 'C:\\Users\\Ev228\\Downloads\\EV228_Data')
-#m = Basemap()
-m = Basemap(projection='mill',llcrnrlat=25.0,urcrnrlat=50.0,\
-            llcrnrlon=66.0,urcrnrlon=125.0,resolution='l')
-m.drawcoastlines()
-m.drawmapboundary(fill_color="#FFFFFF")
-m.drawcountries(linewidth=0.5, linestyle='solid', color='black')
-longsnowgrid, latsnowgrid = np.meshgrid(longsnow, latsnow)
-x, y = m(longsnowgrid, latsnowgrid)
-m.pcolor(x, y, np.squeeze(Snowvarstat), zorder = 1)
-plt.colorbar(label = 'snowfall')
-plt.title("Mean extreme Snowfall events in Asia")
-plt.savefig('C:\\Users\\Ev228\\Downloads\\EV228_Data\\IndvPro_Snowmax', dpi=400)
-plt.show()
+    m = Basemap(projection='mill',llcrnrlat=minlat,urcrnrlat=maxlat,\
+            llcrnrlon=minlong,urcrnrlon=maxlong,resolution='l')
+    m.drawcoastlines()
+    m.drawmapboundary(fill_color="#FFFFFF")
+    m.drawcountries(linewidth=0.5, linestyle='solid', color='black')
+    longsnowgrid, latsnowgrid = np.meshgrid(long, lat)
+    x, y = m(longsnowgrid, latsnowgrid)
+    m.pcolor(x, y, np.squeeze(Varstat), zorder = 1)
+    plt.colorbar(label = cblabel)
+    plt.title(title)
+    plt.savefig(fp_and_name, dpi=400)
+    plt.show()
