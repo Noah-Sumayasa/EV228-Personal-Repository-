@@ -7,9 +7,9 @@ import scipy.stats as scp
 def process_data(file, str_grab):
     data_grab = pd.read_csv(file)
     val1 = data_grab[str_grab]
-    #val1_filt = val1[val1 != 999.90]
-    #return val1_filt
-    return val1
+    val1_filt = val1[val1 != 999.90]
+    return val1_filt
+    
 ''' Imports data file and returns the data parsed from the specific column
     
     Arguments: 
