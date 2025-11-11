@@ -21,7 +21,9 @@ def process_data(file, str_grab):
         val1 -- returns data parsed in the column specified
     
 '''
-                
+
+'''*******************************************************************************************************************************'''  
+
 def process_data_graph(file, variable1, variable2, Title_String, Label_Stringx, Label_Stringy):
     df_cos = pd.read_csv(file)
     ''' Imports data file and plots the data parsed from the column/s specified
@@ -55,8 +57,9 @@ def process_data_graph(file, variable1, variable2, Title_String, Label_Stringx, 
     plt.legend()
     plt.show()
     plt.savefig('C:\\Users\\Ev228\\Downloads\\EV228_Data')
-    return var3_filtered, 
+    return var3_filtered
 
+'''**********************************************************************************************************************'''
 
 def process_grid_data_dict(path_file, variable1, variable2):
     data_file= xr.open_dataset(path_file)
@@ -84,6 +87,8 @@ Outputs:
     }
     return dict_grid
 
+'''********************************************************************************************************************'''
+
 #print(data_set)
 
 def Plot_Grid_Data(dict_val, title, filepath):
@@ -94,8 +99,6 @@ def Plot_Grid_Data(dict_val, title, filepath):
     #plt.ylabel(y_ax)
     plt.savefig(filepath, dpi=400)
     plt.show()
-    
-
 '''
 Imports a certain value from the dictionary and plots it on a gridded format 
 
@@ -106,6 +109,8 @@ Outputs:
     plot.show() -- plots that key from the dictionary
 '''
 
+'''******************************************************************************************************************'''
+
 def process_grid_data(filepath, latitude, longitude, test_variable, Year):
 
     data_file= xr.open_dataset(filepath)
@@ -115,6 +120,24 @@ def process_grid_data(filepath, latitude, longitude, test_variable, Year):
     time = data_file[Year]
 
     return lat, long, var_test, time
+'''
+Imports a dataframe using a specifc filepath and parses for latitude, longitude, the variable being observed, and a time value
+
+Arguments: 
+filepath -- the file name and path which directs to the file that you want to parse 
+latitude -- when set to the string of latitude, parses for that string
+longitude -- when set to the string of longitude, parses for that string
+test_variable -- when set to the string of data variable being observed, parses for that string
+Year -- when set to the time string desired, parses for that string
+
+Outputs: 
+lat -- returns value of latitude parsed from dataframe
+long -- returns value of longitude parsed from datafram 
+var_test -- returns the vale of data being observd parsed from dataframe 
+time -- returns the value of the time being used parsed from the dataframe
+'''
+
+'''*********************************************************************************************************************************'''
 
 def basemap_grid_plot(long, lat, data, timestring, dictval, cblabel, title, fp_and_name):
     
@@ -145,3 +168,22 @@ def basemap_grid_plot(long, lat, data, timestring, dictval, cblabel, title, fp_a
     plt.title(title)
     plt.savefig(fp_and_name, dpi=400)
     plt.show()
+
+    '''
+    Imports data from given data set, chooses certain descriptive statistics from dictionary, then plots it on a basemap graph
+
+    Arguments: 
+    long -- longitude parsed for in gridded dataframe
+    lat -- latitude parsed for in gridded dataframe
+    data -- specific data parsed for that is being observed in data set
+    timestring -- string of time value which is used in descriptive statistics 
+    dictval -- string which chooses a certain descriptive statistic method to use (mean, STD, etc.)
+    cblabel -- gives label to colorbar using string 
+    title -- gives graph a title using string
+    fp_and_name -- saves plot to a file path specifed with a title of your choice 
+
+
+    Outputs: 
+    plot.show() -- plots the basemap and data selected
+
+    '''
